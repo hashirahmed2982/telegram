@@ -13,7 +13,7 @@ const initialUserData = {
   is_premium: false
 }
 function App() {
-  const API_URL = 'http://localhost:4000/game';
+  const API_URL = 'http://16.170.249.21:4000/game';
   
   const [userData, setUserData] = useState(initialUserData);
   const [userData1, setUserData1] = useState({});
