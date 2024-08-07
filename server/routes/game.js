@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/user');
+let userSchema = require('../models/user');
 const router = express.Router();
 
 const calculateEnergyRefill = async (user) => {
@@ -13,7 +13,7 @@ const calculateEnergyRefill = async (user) => {
 // Route to get user data
 router.get('/user/:username', async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.params.username });
+        const user = await userSchema.findOne({ username: req.params.username });
         if (!user) return res.status(404).send('User not found');
         res.send(user);
     } catch (error) {
@@ -24,7 +24,7 @@ router.post('/loginuser', async (req, res) => {
     const { id, first_name, last_name, username ,is_premium ,language_code } = req.body;
     console.log(id);
     try {
-        let user = await User.findOne({ id });
+        let user = await userSchema.findOne({ id });
         if (!user) {
             user = new User({ id, first_name, last_name, username ,is_premium ,language_code});
             await user.save();
@@ -41,7 +41,7 @@ router.post('/loginuser', async (req, res) => {
 router.post('/user', async (req, res) => {
     const { username } = req.body;
     try {
-        let user = await User.findOne({ username });
+        let user = await userSchema.findOne({ username });
         if (user) return res.status(400).send('User already exists');
 
         user = new User({ username });
@@ -56,7 +56,7 @@ router.post('/user', async (req, res) => {
 router.put('/user/:username', async (req, res) => {
     const { taps, boosts, energy } = req.body;
     try {
-        let user = await User.findOne({ username: req.params.username });
+        let user = await userSchema.findOne({ username: req.params.username });
         if (!user) return res.status(404).send('User not found');
 
         if (taps !== undefined) user.taps = taps;
