@@ -27,3 +27,15 @@ app.use('/game', gameRoute);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+app.use((req, res, next) => {
+    res.status(404).send('Error 404!')
+    console.log(res)
+    });
+    
+    app.use(function (err, req, res, next) {
+    console.error(err.message);
+    console.log(err.statusCode)
+    if (!err.statusCode) err.statusCode = 500;
+    res.status(err.statusCode).send(err.message);
+    });
