@@ -18,11 +18,11 @@ function App() {
   const [userData, setUserData] = useState(initialUserData);
   const [userData1, setUserData1] = useState({});
 
-  const SaveUser = async () => {
+  const SaveUser = async (user) => {
     try {
      
       console.log("Attempting to save user data:", userData); // Debugging statement
-      const response = await axios.post(`${API_URL}/loginuser`, userData);
+      const response = await axios.post(`${API_URL}/loginuser`, user);
       console.log("User data saved successfully:", response.data); // Debugging statement
       setUserData1(response.data);
       WebApp.showAlert(response.data.id)
@@ -35,12 +35,12 @@ function App() {
     if (WebApp.initDataUnsafe && WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user);
       
-      SaveUser();
+      SaveUser(WebApp.initDataUnsafe.user);
      
     } else {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
-  }, [userData]);
+  }, []);
   return (
     <>
       {userData1.id ? (
