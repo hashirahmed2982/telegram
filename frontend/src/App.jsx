@@ -20,13 +20,13 @@ const initialUserData = {
 }
 function App() {
   const API_URL = ' https://5fe9-176-234-130-119.ngrok-free.app/game';
-  
+
   const [userData, setUserData] = useState(initialUserData);
   const [userData1, setUserData1] = useState({});
 
   const SaveUser = async (user) => {
     try {
-     
+
       console.log("Attempting to save user data:", userData); // Debugging statement
       const response = await axios.post(`${API_URL}/loginuser`, user);
       console.log("User data saved successfully:", response.data); // Debugging statement
@@ -37,18 +37,18 @@ function App() {
     }
   };
   useEffect(() => {
-    
+
     if (WebApp.initDataUnsafe && WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user);
-      
+
       SaveUser(WebApp.initDataUnsafe.user);
-     
+
     } else {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
   }, []);
   const [currentPage, setCurrentPage] = useState('referral');
-  
+
   const renderPage = () => {
     switch (currentPage) {
       case 'referral':
@@ -56,7 +56,7 @@ function App() {
       case 'tasks':
         return <Tasks />;
       case 'earn':
-        return <TapSwapPage userdata={userData1}/>;
+        return <TapSwapPage userdata={userData1} />;
       case 'boosts':
         return <Boost />;
       default:

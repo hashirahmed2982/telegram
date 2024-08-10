@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+
 import { Box, Typography } from '@mui/material';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 
@@ -34,7 +35,7 @@ const BoostCards = ({ item }) => {
                 <Typography variant="body2" sx={{ fontSize: 12 }}>
                     lvl {item.level}
                 </Typography>
-                <Typography variant="body2" sx={{ fontSize: 12, color:'#FFD700' }}>
+                <Typography variant="body2" sx={{ fontSize: 12, color: '#FFD700' }}>
                     {item.price}
                 </Typography>
             </Box>

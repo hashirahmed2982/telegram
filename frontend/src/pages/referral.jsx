@@ -1,7 +1,6 @@
-"use client";
-import React from 'react';
-import { Container, Box, Typography, IconButton, Button, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { ArrowBack, MoreVert, EmojiEvents, CopyAll } from '@mui/icons-material';
+
+import { Container, Box, Typography, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { ArrowBack, MoreVert, EmojiEvents } from '@mui/icons-material';
 import InviteCard from '../Components/InviteCaed';
 import { useState } from 'react';
 import Galaxy from '../Components/Galaxy';
@@ -20,11 +19,11 @@ const Refferal = () => {
 
   return (
     <>
-      
+
       <Container maxWidth="sm" sx={{ color: '#fff', minHeight: '100vh', py: 2, pb: 8, position: 'relative' }}>
-      <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
-        <Galaxy />
-      </Box>
+        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
+          <Galaxy />
+        </Box>
         {/* Header */}
         <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
           <IconButton sx={{ color: '#fff' }}>
