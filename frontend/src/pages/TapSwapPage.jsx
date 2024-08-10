@@ -113,7 +113,7 @@ const Earn = ({ userdata }) => {
         </Typography>
       </Box>
 
-      <Box mt={28} display="flex" justifyContent="center">
+      <Box mt={24} display="flex" justifyContent="center">
         <div onClick={(e) => handleClick(1, e)}
           onMouseDown={() => handleMouseDown(1)}
           onMouseUp={() => handleMouseUp(1)}
@@ -121,15 +121,8 @@ const Earn = ({ userdata }) => {
           onTouchStart={() => handleMouseDown(1)}
           onTouchEnd={() => handleMouseUp(1)}
           onTouchCancel={() => handleMouseUp(1)}>
-          <img src="/kamala_card.png" alt="Coin" draggable="false" style={{
-            width: {
-              xs: '150px',  // Smaller width on mobile screens
-              sm: '170px',  // Slightly larger on small screens
-              md: '190px'   // Default size on medium and up
-            },
-            height: '90%',
-            marginRight: '16px',
-            pointerEvents: 'none',
+           <img src="/kamala_card.png" alt="Coin" draggable="false" style={{
+            width: '190px', height: '90%', marginRight: '16px', pointerEvents: 'none',
             userSelect: 'none',
             transform: isPressedCoin1 ? 'translateY(4px)' : 'translateY(0px)',
             transition: 'transform 100ms ease'
