@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     first_name: { type: String},
     last_name: { type: String },
     username: { type: String},
-    is_premium: { type: String },
+    is_premium: { type: Boolean },
     language_code: { type: String},
     energy: { type: Number, default: 250 },
     totalenergy: { type: Number, default: 250 },

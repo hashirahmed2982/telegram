@@ -53,7 +53,7 @@ const Earn = ({ userdata }) => {
     setEnergy(newEnergy);
     setClicks([...clicks, { id: Date.now(), x, y }]);
     setTotalVotes(totalVotes + 780923);
-    await fetch(`/game/user/${userdata.id}`, {
+    await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/game/user/${userdata.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
