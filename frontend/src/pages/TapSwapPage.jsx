@@ -91,19 +91,26 @@ const Earn = ({ userdata }) => {
       <Box sx={{
         position: 'fixed',
         top: '9%',
-        left: '23.5%',
+        left: '50%',
         transform: 'translateX(-50%)',
         zIndex: -1,
-        width: '100%',
+        width: {
+          xs: '100%', // Full width on extra small screens
+          sm: '80%',  // 80% width on small screens
+          md: '60%',  // 60% width on medium screens
+        },
         textAlign: 'center'
       }}>
-        <img src={'/white_house.png'} alt="White House" style={{ width: '150%', height: '100%', maxWidth: '900px' }} />
+        <img src={'/white_house.png'} alt="White House" style={{ width: '100%', maxWidth: '900px' }} />
       </Box>
 
-
       <Box display="flex" flexDirection="column" alignItems="center" mt={0.5}>
-        <Typography variant="h3" fontWeight="bold">{pointsCoin1.toLocaleString()}</Typography>
-        <Typography variant="subtitle1" color="primary"><EmojiEvents sx={{ verticalAlign: 'middle' }} /> Legendary</Typography>
+        <Typography variant="h3" fontWeight="bold" sx={{ fontSize: { xs: '2rem', md: '3rem' } }}>
+          {pointsCoin1.toLocaleString()}
+        </Typography>
+        <Typography variant="subtitle1" color="primary">
+          <EmojiEvents sx={{ verticalAlign: 'middle' }} /> Legendary
+        </Typography>
       </Box>
 
       <Box mt={28} display="flex" justifyContent="center">
@@ -115,24 +122,34 @@ const Earn = ({ userdata }) => {
           onTouchEnd={() => handleMouseUp(1)}
           onTouchCancel={() => handleMouseUp(1)}>
           <img src="/kamala_card.png" alt="Coin" draggable="false" style={{
-            width: '190px', height: '90%', marginRight: '16px', pointerEvents: 'none',
+            width: {
+              xs: '150px',  // Smaller width on mobile screens
+              sm: '170px',  // Slightly larger on small screens
+              md: '190px'   // Default size on medium and up
+            },
+            height: 'auto',
+            marginRight: '16px',
+            pointerEvents: 'none',
             userSelect: 'none',
             transform: isPressedCoin1 ? 'translateY(4px)' : 'translateY(0px)',
             transition: 'transform 100ms ease'
           }} className='select-none' />
         </div>
-
-
-
       </Box>
 
       <Box mt={26} display="flex" justifyContent="center">
-        <LinearProgress variant="determinate" value={((energy / totalenergy) * 100)} sx={{ width: '90%', height: 10, borderRadius: 5, bgcolor: 'grey.800', '& .MuiLinearProgress-bar': { bgcolor: 'blue' } }} />
+        <LinearProgress variant="determinate" value={((energy / totalenergy) * 100)} sx={{
+          width: '90%',
+          height: 10,
+          borderRadius: 5,
+          bgcolor: 'grey.800',
+          '& .MuiLinearProgress-bar': { bgcolor: 'blue' }
+        }} />
       </Box>
 
-      <Typography align="center" variant="body1" mt={1}>{energy}/{totalenergy}</Typography>
-
-
+      <Typography align="center" variant="body1" mt={1}>
+        {energy}/{totalenergy}
+      </Typography>
     </Container>
   );
 };
