@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
     is_premium: { type: String },
     language_code: { type: String},
     energy: { type: Number, default: 250 },
+    totalenergy: { type: Number, default: 250 },
+    pointsadd: { type: Number, default: 1 },
     taps: { type: Number, default: 0 },
     boosts: { type: Number, default: 0 },
     lastEnergyUpdate: { type: Date, default: Date.now },

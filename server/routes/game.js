@@ -26,7 +26,7 @@ router.post('/loginuser', async (req, res) => {
     try {
         let user = await userSchema.findOne({ id });
         if (!user) {
-            user = new User({ id, first_name, last_name, username ,is_premium ,language_code});
+            user = new userSchema({ id, first_name, last_name, username ,is_premium ,language_code});
             await user.save();
         } else {
             await calculateEnergyRefill(user);
@@ -34,6 +34,7 @@ router.post('/loginuser', async (req, res) => {
         res.send(user);
     } catch (error) {
         res.status(500).send('Server error');
+        console.log(error);
     }
 });
 
@@ -53,10 +54,10 @@ router.post('/user', async (req, res) => {
 });
 
 // Route to update user data (e.g., taps, boosts, energy)
-router.put('/user/:username', async (req, res) => {
+router.put('/user/:id', async (req, res) => {
     const { taps, boosts, energy } = req.body;
     try {
-        let user = await userSchema.findOne({ username: req.params.username });
+        let user = await userSchema.findOne({ id: req.params.id });
         if (!user) return res.status(404).send('User not found');
 
         if (taps !== undefined) user.taps = taps;

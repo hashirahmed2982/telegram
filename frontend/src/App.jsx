@@ -3,6 +3,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import WebApp from '@twa-dev/sdk'
 import axios from 'axios';
+import TapSwapPage from './pages/TapSwapPage'
+import Boost from './pages/boost'
+import Tasks from './pages/tasks'
+import Refferal from './pages/referral'
+import BottomBar from './Components/BottomBar'
+
 
 const initialUserData = {
   id: null,
@@ -41,19 +47,28 @@ function App() {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
   }, []);
+  const [currentPage, setCurrentPage] = useState('referral');
+  
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'referral':
+        return <Refferal />;
+      case 'tasks':
+        return <Tasks />;
+      case 'earn':
+        return <TapSwapPage userdata={userData1}/>;
+      case 'boosts':
+        return <Boost />;
+      default:
+        return <TapSwapPage />;
+    }
+  };
   return (
     <>
       {userData1.id ? (
         <>
-          <h1 className="text-2xl font-bold mb-4">User Data</h1>
-          <ul>
-            <li>ID: {userData1.id}</li>
-            <li>First Name: {userData1.first_name}</li>
-            <li>Last Name: {userData1.last_name || 'N/A'}</li>
-            <li>Username: {userData1.username || 'N/A'}</li>
-            <li>Language Code: {userData1.language_code}</li>
-            <li>Is Premium: {userData1.is_premium ? 'Yes' : 'No'}</li>
-          </ul>
+          {renderPage()}
+          <BottomBar onNavigate={setCurrentPage} />
         </>
       ) : (
         <div>Loading...</div>
