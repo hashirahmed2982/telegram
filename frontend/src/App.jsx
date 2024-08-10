@@ -47,7 +47,7 @@ function App() {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
   }, []);
-  const [currentPage, setCurrentPage] = useState('referral');
+  const [currentPage, setCurrentPage] = useState('earn');
 
   const renderPage = () => {
     switch (currentPage) {
