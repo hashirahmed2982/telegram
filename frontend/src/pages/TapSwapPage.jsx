@@ -127,7 +127,7 @@ const Earn = ({ userdata }) => {
               sm: '170px',  // Slightly larger on small screens
               md: '190px'   // Default size on medium and up
             },
-            height: 'auto',
+            height: '90%',
             marginRight: '16px',
             pointerEvents: 'none',
             userSelect: 'none',
@@ -137,7 +137,7 @@ const Earn = ({ userdata }) => {
         </div>
       </Box>
 
-      <Box mt={26} display="flex" justifyContent="center">
+      <Box mt={'auto'} display="flex" justifyContent="center">
         <LinearProgress variant="determinate" value={((energy / totalenergy) * 100)} sx={{
           width: '90%',
           height: 10,
