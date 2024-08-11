@@ -37,6 +37,7 @@ const Refferal = ({ userdata }) => {
       } catch (error) {
         setError('Error fetching referrals');
         setLoading(false);
+        console.error("Error fetching referrals:", error); // Debugging statement
       }
     };
 
