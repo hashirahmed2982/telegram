@@ -26,23 +26,29 @@ const Refferal = ({ userdata }) => {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        console.log("dadas", userdata.id);
+        console.log("dada", userdata.id);
         const id = userdata.id;
+        console.log("dadas", id);
+        
+        // Make a GET request to your API endpoint
         const response = await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`);
     
+        // Check if the response is okay
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
     
+        // Parse the JSON data from the response
         const fetchedReferrals = await response.json();
     
-        // Safely handle empty list
+        // Safely handle the case where the fetchedReferrals array is empty
         const totalRewards = fetchedReferrals.length > 0
           ? fetchedReferrals.reduce((acc, referral) => acc + referral.reward, 0)
           : 0;
     
         const totalReferrals = fetchedReferrals.length;
     
+        // Update the state with the fetched data
         setReferrals(fetchedReferrals);
         setTotalRewards(totalRewards);
         setTotalReferrals(totalReferrals);
@@ -50,12 +56,12 @@ const Refferal = ({ userdata }) => {
       } catch (error) {
         setError('Error fetching referrals');
         setLoading(false);
-        console.error("Error fetching referrals:", error); // Debugging statement
+        console.error("Error fetching referrals:", error); // Log the error for debugging
       }
     };
 
     fetchReferrals();
-  }, [userdata.id]);
+  }, []);
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography>{error}</Typography>;
   return (
