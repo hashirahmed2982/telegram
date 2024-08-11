@@ -8,9 +8,7 @@ router.get('/referalslist/:id', async (req, res) => {
         // Find all referrals with the given referrerId
         const referrals = await refferal.find({ referrerId: req.params.id });
         
-        if (referrals.length === 0) {
-            return res.send([]);
-        }
+       
 
         res.send(referrals);
     } catch (error) {
