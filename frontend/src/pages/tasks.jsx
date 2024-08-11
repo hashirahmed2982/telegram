@@ -1,6 +1,6 @@
 
 import { Container, Box, Typography, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { ArrowBack, MoreVert, CheckCircle } from '@mui/icons-material';
+import {  CheckCircle } from '@mui/icons-material';
 import { Telegram, YouTube, Twitter, AccountBalance, Group } from '@mui/icons-material';
 import Galaxy from '../Components/Galaxy';
 
@@ -26,15 +26,7 @@ const Tasks = () => {
             <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
                 <Galaxy />
             </Box>
-            <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
-                <IconButton sx={{ color: '#fff' }}>
-                    <ArrowBack />
-                </IconButton>
-                <Typography variant="h6">VoteChain</Typography>
-                <IconButton sx={{ color: '#fff' }}>
-                    <MoreVert />
-                </IconButton>
-            </Box>
+           
 
             {/* Title */}
             <Box textAlign="center" mb={4}>

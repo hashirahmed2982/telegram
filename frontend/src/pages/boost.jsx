@@ -40,7 +40,7 @@ const Boost = () => {
                     <MoreVert />
                 </IconButton>
             </Box>
-
+            
             {/* Daily Combo */}
             <Box textAlign="center" mb={2}>
                 <Typography variant="h5" fontWeight="bold">Level Up</Typography>

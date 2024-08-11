@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import { Container, Box, Typography, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { EmojiEvents } from '@mui/icons-material';
+import { Container, Box, Typography, List, ListItem, ListItemAvatar, ListItemText, IconButton } from '@mui/material';
+import { EmojiEvents, CopyAll } from '@mui/icons-material';
 import InviteCard from '../Components/InviteCaed';
 import { useEffect, useState } from 'react';
 import Galaxy from '../Components/Galaxy';
@@ -23,6 +23,15 @@ const Refferal = ({ userdata }) => {
     { level: 'Epic', friend: '+100,000', premium: '+150,000', image: '/1.webp' },
     { level: 'Legendary', friend: '+250,000', premium: '+500,000', image: '/1.webp' },
   ];
+  const copyLink = () => {
+    navigator.clipboard.writeText(userdata.refferallink)
+      .then(() => {
+        alert('Link copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy link: ', err);
+      });
+  };
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
@@ -128,6 +137,21 @@ const Refferal = ({ userdata }) => {
           )}
           </Box>
         </Box>
+        <IconButton
+          onClick={copyLink} 
+          sx={{
+            position: 'fixed',
+            bottom: 16,
+            right: 16,
+            bgcolor: '#0ddb7c',
+            color: '#fff',
+            '&:hover': {
+              bgcolor: '#0a9f6a',
+            }
+          }}
+        >
+          <CopyAll />
+        </IconButton>
       </Container>
     </>
   );

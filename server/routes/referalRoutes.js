@@ -3,11 +3,12 @@ const express = require('express');
 const refferal = require('../models/refferal');
 const router = express.Router();
 
-router.get('/referalslist/:id', async (req, res) => {
-    console.log("ref",req.params.id)
+router.post('/referalslist', async (req, res) => {
+    const { id} = req.body;
+    console.log("ref",id)
     try {
         // Find all referrals with the given referrerId
-        const referrals = await refferal.find({ referrerId: req.params.id });
+        const referrals = await refferal.find({ referrerId: id });
         
     console.log("refa",referrals)
        

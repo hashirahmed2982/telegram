@@ -4,23 +4,26 @@ import { useEffect, useState } from 'react';
 import { Container, Box, Typography, LinearProgress } from '@mui/material';
 import { EmojiEvents } from '@mui/icons-material';
 import Galaxy from '../Components/Galaxy';
+import axios from 'axios';
 
 const Earn = ({ userdata }) => {
 
 
 
   const [isPressedCoin1, setIsPressedCoin1] = useState(false);
-  const [pointsCoin1, setPointsCoin1] = useState(userdata.taps);
+  const [pointsCoin1, setPointsCoin1] = useState(userdata1.taps);
   const [clicksCoin1, setClicksCoin1] = useState([]);
   const [totalVotesCoin1, setTotalVotesCoin1] = useState(0);
+  const [userdata1, setUserData1] = useState(userdata1);
 
   const [isPressedCoin2, setIsPressedCoin2] = useState(false);
   const [pointsCoin2, setPointsCoin2] = useState(0);
   const [clicksCoin2, setClicksCoin2] = useState([]);
   const [totalVotesCoin2, setTotalVotesCoin2] = useState(0);
 
-  const [energy, setEnergy] = useState(userdata.energy);
-  const [totalenergy] = useState(userdata.totalenergy);
+  const [energy, setEnergy] = useState(userdata1.energy);
+  const [totalenergy] = useState(userdata1.totalenergy);
+  const API_URL = ' https://5fe9-176-234-130-119.ngrok-free.app/game';
 
   const pointsToAdd = userdata.pointsadd;
   const energyToReduce = 1;
@@ -53,7 +56,7 @@ const Earn = ({ userdata }) => {
     setEnergy(newEnergy);
     setClicks([...clicks, { id: Date.now(), x, y }]);
     setTotalVotes(totalVotes + 780923);
-    await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/game/user/${userdata.id}`, {
+    await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/game/user/${userdata1.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +69,18 @@ const Earn = ({ userdata }) => {
   //   const setClicks = coin === 1 ? setClicksCoin1 : setClicksCoin2;
   //   setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
   // };
-
+  const getUser = async (id) => {
+    try {
+      const response = await axios.post(`${API_URL}/loginuser`, {id:id});
+      console.log("User data saved successfully:", response.data); // Debugging statement
+      setUserData1(response.data);
+    } catch (error) {
+      console.error("Error saving user data:", error); // Debugging statement
+    }
+  };
+  useEffect(() => {
+    getUser(userdata.id)
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setEnergy((prevEnergy) => Math.min(prevEnergy + 1, totalenergy));

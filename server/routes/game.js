@@ -39,7 +39,7 @@ router.post('/loginuser', async (req, res) => {
                 // Create a new referral document
                 const newReferral = new refferal({
                     referrerId: user1.id,
-                    referredId: ref, // Assuming user.id is the referredId
+                    referredId: id, // Assuming user.id is the referredId
                     referredName: first_name + last_name || 'Unknown', // You can use another field if needed
                     reward: 100 // Set the reward as needed
                 });
