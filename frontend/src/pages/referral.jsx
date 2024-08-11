@@ -27,9 +27,13 @@ const Refferal = ({ userdata }) => {
     const fetchReferrals = async () => {
       try {
         const response = await axios.get(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${userdata.id}`);
-         // Calculate total rewards and total referrals
-         const totalRewards = response.data.reduce((acc, referral) => acc + referral.reward, 0);
-         const totalReferrals = response.data.length;
+        const fetchedReferrals = response.data;
+          // Safely handle empty list
+          const totalRewards = fetchedReferrals.length > 0
+          ? fetchedReferrals.reduce((acc, referral) => acc + referral.reward, 0)
+          : 0;
+
+      const totalReferrals = fetchedReferrals.length;
         setReferrals(response.data);
         setTotalRewards(totalRewards);
         setTotalReferrals(totalReferrals);
