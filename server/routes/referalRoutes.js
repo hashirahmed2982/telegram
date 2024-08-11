@@ -1,5 +1,5 @@
 const express = require('express');
-let userSchema = require('../models/user');
+
 const refferal = require('../models/refferal');
 const router = express.Router();
 

@@ -31,7 +31,12 @@ const Refferal = ({ userdata }) => {
         console.log("dadas", id);
         
         // Make a GET request to your API endpoint
-        const response = await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`);
+        const response = await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
     
         // Check if the response is okay
         if (!response.ok) {
