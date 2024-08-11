@@ -48,6 +48,12 @@ function App() {
     } else {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
+
+    const queryParams = new URLSearchParams(window.location.search);
+
+    // Extract the parameter
+    const paramValue = queryParams.get('ref');
+   console.log("ref",paramValue);
   }, []);
   const [currentPage, setCurrentPage] = useState('earn');
 
