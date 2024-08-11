@@ -11,7 +11,7 @@ const Earn = ({ userdata }) => {
 
 
   const [isPressedCoin1, setIsPressedCoin1] = useState(false);
-  const [pointsCoin1, setPointsCoin1] = useState(userdata1.taps);
+  const [pointsCoin1, setPointsCoin1] = useState(userdata.taps);
   const [clicksCoin1, setClicksCoin1] = useState([]);
   const [totalVotesCoin1, setTotalVotesCoin1] = useState(0);
   const [userdata1, setUserData1] = useState(userdata1);
@@ -21,8 +21,8 @@ const Earn = ({ userdata }) => {
   const [clicksCoin2, setClicksCoin2] = useState([]);
   const [totalVotesCoin2, setTotalVotesCoin2] = useState(0);
 
-  const [energy, setEnergy] = useState(userdata1.energy);
-  const [totalenergy] = useState(userdata1.totalenergy);
+  const [energy, setEnergy] = useState(userdata.energy);
+  const [totalenergy ,settotalenergy] = useState(userdata.totalenergy);
   const API_URL = ' https://5fe9-176-234-130-119.ngrok-free.app/game';
 
   const pointsToAdd = userdata.pointsadd;
@@ -74,6 +74,9 @@ const Earn = ({ userdata }) => {
       const response = await axios.post(`${API_URL}/loginuser`, {id:id});
       console.log("User data saved successfully:", response.data); // Debugging statement
       setUserData1(response.data);
+      setEnergy(response.data.energy);
+      setPointsCoin1(response.data.taps);
+      settotalenergy(response.data.totalenergy);
     } catch (error) {
       console.error("Error saving user data:", error); // Debugging statement
     }
