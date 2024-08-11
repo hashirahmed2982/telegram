@@ -1,5 +1,6 @@
 const express = require('express');
 let userSchema = require('../models/user');
+const refferal = require('../models/refferal');
 const router = express.Router();
 
 const calculateEnergyRefill = async (user) => {
@@ -9,6 +10,14 @@ const calculateEnergyRefill = async (user) => {
     user.energy = Math.min(user.energy + energyToAdd, user.totalenergy); // assuming 100 is the max energy
     user.lastEnergyUpdate = now;
     return await user.save();
+};
+const CheckReferal = async (ref) => {
+    try {
+        // Find the user with the given ref id
+
+    } catch (error) {
+        console.error('Error processing referral:', error);
+    }
 };
 // Route to get user data
 router.get('/user/:username', async (req, res) => {
@@ -22,13 +31,38 @@ router.get('/user/:username', async (req, res) => {
 });
 
 router.post('/loginuser', async (req, res) => {
-    const { id, first_name, last_name, username ,is_premium ,language_code,refferallink } = req.body;
+    const { id, first_name, last_name, username, is_premium, language_code, refferallink } = req.body;
     console.log(id);
     try {
         let user = await userSchema.findOne({ id });
         if (!user) {
-            user = new userSchema({ id, first_name, last_name, username ,is_premium ,language_code,refferallink});
-            await user.save();
+            const user1 = await userSchema.findOne({ id: ref });
+
+            if (user1) {
+                // Increase the user's taps by 100
+                user1.taps += 100;
+                await user1.save();
+
+                // Create a new referral document
+                const newReferral = new refferal({
+                    referrerId: user1.id,
+                    referredId: ref, // Assuming user.id is the referredId
+                    referredName: first_name + last_name || 'Unknown', // You can use another field if needed
+                    reward: 100 // Set the reward as needed
+                });
+
+                // Save the new referral document
+                await newReferral.save();
+
+                console.log('User taps updated and referral saved successfully.');
+                user = new userSchema({ id, first_name, last_name, username, is_premium, language_code, refferallink, taps: 100 });
+                await user.save();
+            } else {
+                console.log('User not found.');
+                user = new userSchema({ id, first_name, last_name, username, is_premium, language_code, refferallink });
+                await user.save();
+            }
+
         } else {
             await calculateEnergyRefill(user);
         }
