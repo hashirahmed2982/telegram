@@ -141,12 +141,12 @@ const Refferal = ({ userdata }) => {
           onClick={copyLink} 
           sx={{
             position: 'fixed',
-            bottom: 0,
+            top: 16,
             right: 16,
             bgcolor: '#0ddb7c',
             color: '#fff',
             '&:hover': {
-              bgcolor: '#0a9f6a',
+              bgcolor: 'blue',
             }
           }}
         >
