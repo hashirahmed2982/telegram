@@ -28,20 +28,19 @@ app.use('/game', gameRoute);
 app.use('/referal', referalRoute);
 
 
+// Error Handling Middleware
+app.use((req, res, next) => {
+    res.status(404).send('Error 404: Not Found!');
+    next(); // Allow the error handler to execute
+});
 
+app.use((err, req, res, next) => {
+    console.error('Server Error:', err.message);
+    if (!err.statusCode) err.statusCode = 500;
+    res.status(err.statusCode).send(err.message);
+});
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-app.use((req, res, next) => {
-    res.status(404).send('Error 404!')
-    console.log(res)
-    });
-    
-    app.use(function (err, req, res, next) {
-    console.error(err.message);
-    console.log(err.statusCode)
-    if (!err.statusCode) err.statusCode = 500;
-    res.status(err.statusCode).send(err.message);
-    });

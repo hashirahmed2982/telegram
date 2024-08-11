@@ -5,14 +5,14 @@ import { EmojiEvents } from '@mui/icons-material';
 import InviteCard from '../Components/InviteCaed';
 import { useEffect, useState } from 'react';
 import Galaxy from '../Components/Galaxy';
-
+import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
 const Refferal = ({ userdata }) => {
   const [showBonuses, setShowBonuses] = useState(false);
   const [referrals, setReferrals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error] = useState(null);
+  const [error, setError] = useState(null);
   const [totalRewards, setTotalRewards] = useState(0);
   const [totalReferrals, setTotalReferrals] = useState(0);
   const bonuses = [
@@ -26,47 +26,30 @@ const Refferal = ({ userdata }) => {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        console.log("dada", userdata.id);
+        console.log("dada",userdata.id);
         const id = userdata.id;
-        console.log("dadas", id);
-        
-        // Make a GET request to your API endpoint
-        const response = await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-    
-        // Check if the response is okay
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-    
-        // Parse the JSON data from the response
-        const fetchedReferrals = await response.json();
-    
-        // Safely handle the case where the fetchedReferrals array is empty
-        const totalRewards = fetchedReferrals.length > 0
+        const response = await axios.get('https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/' + id);
+        const fetchedReferrals = response.data;
+        // console.log("list" ,fetchedReferrals)
+          // Safely handle empty list
+          const totalRewards = fetchedReferrals.length > 0
           ? fetchedReferrals.reduce((acc, referral) => acc + referral.reward, 0)
           : 0;
-    
-        const totalReferrals = fetchedReferrals.length;
-    
-        // Update the state with the fetched data
-        setReferrals(fetchedReferrals);
+
+      const totalReferrals = fetchedReferrals.length;
+        setReferrals(response.data);
         setTotalRewards(totalRewards);
         setTotalReferrals(totalReferrals);
         setLoading(false);
       } catch (error) {
-        
+        setError('Error fetching referrals');
         setLoading(false);
-        console.error("Error fetching referrals:", error); // Log the error for debugging
+        console.error("Error fetching referrals:", error); // Debugging statement
       }
     };
 
     fetchReferrals();
-  }, []);
+  }, [userdata.id]);
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography>{error}</Typography>;
   return (
