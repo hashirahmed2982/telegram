@@ -22,12 +22,12 @@ router.get('/user/:username', async (req, res) => {
 });
 
 router.post('/loginuser', async (req, res) => {
-    const { id, first_name, last_name, username ,is_premium ,language_code } = req.body;
+    const { id, first_name, last_name, username ,is_premium ,language_code,refferallink } = req.body;
     console.log(id);
     try {
         let user = await userSchema.findOne({ id });
         if (!user) {
-            user = new userSchema({ id, first_name, last_name, username ,is_premium ,language_code});
+            user = new userSchema({ id, first_name, last_name, username ,is_premium ,language_code,refferallink});
             await user.save();
         } else {
             await calculateEnergyRefill(user);
