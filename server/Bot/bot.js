@@ -12,7 +12,7 @@ bot.on('message', (msg) => {
         // Extract parameter if present
         const urlParts = messageText.split(' ');
         const parameter = urlParts.length > 1 ? urlParts[1] : '';
-        const webAppUrl = `https://telegram-eosin-iota.vercel.app/`;
+        const webAppUrl = `https://telegram-eosin-iota.vercel.app?ref=${parameter}`;
         // Create an Inline Keyboard button to open the web app
         const options = {
             reply_markup: {
@@ -30,7 +30,7 @@ bot.on('message', (msg) => {
         };
 
         // Send the message with the Inline Keyboard
-        bot.sendMessage(chatId, 'Click the button below to open the web app:', options);
+        bot.sendMessage(chatId, `Click the button below to open the web app: ${parameter}`, options);
  
     }
 });

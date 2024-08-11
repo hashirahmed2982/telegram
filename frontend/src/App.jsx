@@ -24,12 +24,16 @@ function App() {
 
   const [userData, setUserData] = useState(initialUserData);
   const [userData1, setUserData1] = useState({});
+  const queryParams = new URLSearchParams(window.location.search);
 
+  // Extract the parameter
+  const paramValue = queryParams.get('ref');
   const SaveUser = async (user) => {
     try {
 
       console.log("Attempting to save user data:", userData);
-      user.refferallink = 'https://t.me/vote2982_bot?start=${'+user.id +'}'; // Debugging statement
+      user.refferallink = `https://t.me/vote2982_bot?start=${user.id}`; // Debugging statement
+      user.ref = paramValue;
       const response = await axios.post(`${API_URL}/loginuser`, user);
       console.log("User data saved successfully:", response.data); // Debugging statement
       setUserData1(response.data);
@@ -49,10 +53,7 @@ function App() {
       console.error("WebApp.initDataUnsafe.user is not available"); // Debugging statement
     }
 
-    const queryParams = new URLSearchParams(window.location.search);
-
-    // Extract the parameter
-    const paramValue = queryParams.get('ref');
+    
    console.log("ref",paramValue);
   }, []);
   const [currentPage, setCurrentPage] = useState('earn');
