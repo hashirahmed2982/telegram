@@ -5,7 +5,7 @@ import { EmojiEvents } from '@mui/icons-material';
 import InviteCard from '../Components/InviteCaed';
 import { useEffect, useState } from 'react';
 import Galaxy from '../Components/Galaxy';
-import axios from 'axios';
+
 
 // eslint-disable-next-line react/prop-types
 const Refferal = ({ userdata }) => {
@@ -26,18 +26,24 @@ const Refferal = ({ userdata }) => {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        console.log("dada",userdata.id);
+        console.log("dadas", userdata.id);
         const id = userdata.id;
-        const response = await axios.get('https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/' + id);
-        const fetchedReferrals = response.data;
-        // console.log("list" ,fetchedReferrals)
-          // Safely handle empty list
-          const totalRewards = fetchedReferrals.length > 0
+        const response = await fetch(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`);
+    
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+    
+        const fetchedReferrals = await response.json();
+    
+        // Safely handle empty list
+        const totalRewards = fetchedReferrals.length > 0
           ? fetchedReferrals.reduce((acc, referral) => acc + referral.reward, 0)
           : 0;
-
-      const totalReferrals = fetchedReferrals.length;
-        setReferrals(response.data);
+    
+        const totalReferrals = fetchedReferrals.length;
+    
+        setReferrals(fetchedReferrals);
         setTotalRewards(totalRewards);
         setTotalReferrals(totalReferrals);
         setLoading(false);
