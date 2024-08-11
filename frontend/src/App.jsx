@@ -61,7 +61,7 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'referral':
-        return <Refferal />;
+        return <Refferal userdata={userData1}/>;
       case 'tasks':
         return <Tasks />;
       case 'earn':

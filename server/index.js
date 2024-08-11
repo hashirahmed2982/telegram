@@ -6,6 +6,8 @@ let cors = require('cors');
 const PORT = process.env.PORT || 4000;
 let dbConfig = require('./database/db');
 const gameRoute = require('./routes/game');
+const referalRoute = require('./routes/referalRoutes');
+
 
 
 mongoose.Promise = global.Promise;
@@ -23,6 +25,8 @@ app.use(cors());
 
 // Routes
 app.use('/game', gameRoute);
+app.use('/referal', referalRoute);
+
 
 
 // Start server

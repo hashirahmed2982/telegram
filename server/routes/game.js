@@ -11,14 +11,7 @@ const calculateEnergyRefill = async (user) => {
     user.lastEnergyUpdate = now;
     return await user.save();
 };
-const CheckReferal = async (ref) => {
-    try {
-        // Find the user with the given ref id
 
-    } catch (error) {
-        console.error('Error processing referral:', error);
-    }
-};
 // Route to get user data
 router.get('/user/:username', async (req, res) => {
     try {
@@ -31,7 +24,7 @@ router.get('/user/:username', async (req, res) => {
 });
 
 router.post('/loginuser', async (req, res) => {
-    const { id, first_name, last_name, username, is_premium, language_code, refferallink } = req.body;
+    const { id, first_name, last_name, username, is_premium, language_code, refferallink ,ref} = req.body;
     console.log(id);
     try {
         let user = await userSchema.findOne({ id });

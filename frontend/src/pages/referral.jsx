@@ -1,13 +1,20 @@
+/* eslint-disable react/prop-types */
 
-import { Container, Box, Typography, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { ArrowBack, MoreVert, EmojiEvents } from '@mui/icons-material';
+import { Container, Box, Typography, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { EmojiEvents } from '@mui/icons-material';
 import InviteCard from '../Components/InviteCaed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Galaxy from '../Components/Galaxy';
+import axios from 'axios';
 
-const Refferal = () => {
+// eslint-disable-next-line react/prop-types
+const Refferal = ({ userdata }) => {
   const [showBonuses, setShowBonuses] = useState(false);
-
+  const [referrals, setReferrals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [totalRewards, setTotalRewards] = useState(0);
+  const [totalReferrals, setTotalReferrals] = useState(0);
   const bonuses = [
     { level: 'Silver', friend: '+20,000', premium: '+25,000', image: '/1.webp' },
     { level: 'Gold', friend: '+30,000', premium: '+50,000', image: '/1.webp' },
@@ -16,7 +23,27 @@ const Refferal = () => {
     { level: 'Epic', friend: '+100,000', premium: '+150,000', image: '/1.webp' },
     { level: 'Legendary', friend: '+250,000', premium: '+500,000', image: '/1.webp' },
   ];
+  useEffect(() => {
+    const fetchReferrals = async () => {
+      try {
+        const response = await axios.get(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${userdata.id}`);
+         // Calculate total rewards and total referrals
+         const totalRewards = response.data.reduce((acc, referral) => acc + referral.reward, 0);
+         const totalReferrals = response.data.length;
+        setReferrals(response.data);
+        setTotalRewards(totalRewards);
+        setTotalReferrals(totalReferrals);
+        setLoading(false);
+      } catch (error) {
+        setError('Error fetching referrals');
+        setLoading(false);
+      }
+    };
 
+    fetchReferrals();
+  }, [userdata.id]);
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography>{error}</Typography>;
   return (
     <>
 
@@ -24,21 +51,11 @@ const Refferal = () => {
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
           <Galaxy />
         </Box>
-        {/* Header */}
-        <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
-          <IconButton sx={{ color: '#fff' }}>
-            <ArrowBack />
-          </IconButton>
-          <Typography variant="h6">VoteChain</Typography>
-          <IconButton sx={{ color: '#fff' }}>
-            <MoreVert />
-          </IconButton>
-        </Box>
 
         {/* Referrals Section */}
         <Box textAlign="center" mb={2}>
-          <Typography variant="h4" fontWeight="bold">1 Referrals</Typography>
-          <Typography variant="h5" color="#0ddb7c">+17 000</Typography>
+          <Typography variant="h4" fontWeight="bold">{totalReferrals} Referrals</Typography>
+          <Typography variant="h5" color="#0ddb7c">+{totalRewards}</Typography>
         </Box>
 
         {/* Invite Cards Section */}
@@ -86,20 +103,21 @@ const Refferal = () => {
             transform: 'scale(1.05)',
             border: '0.1px solid rgba(255, 255, 255, 0.3)',
           }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-              <Typography variant="subtitle1">Nofil Iqbal</Typography>
-              <Typography variant="subtitle1" color="#0ddb7c">+17 000</Typography>
-            </Box>
-            <Box display="flex" alignItems="center" mb={1}>
-              <EmojiEvents sx={{ color: 'gold', mr: 1 }} />
-              <Typography variant="subtitle1" sx={{ color: 'gold' }}>gold</Typography>
-              <Typography variant="subtitle1" sx={{ ml: 2 }}>194 069</Typography>
-            </Box>
-            <Box>
-              <Box sx={{ bgcolor: '#3b3b4f', height: 10, borderRadius: 5 }}>
-                <Box sx={{ bgcolor: '#000850', height: '100%', width: '100%', borderRadius: 5 }} />
-              </Box>
-            </Box>
+            {referrals.length > 0 ? (
+            referrals.map((referral, index) => (
+            <><Box key={index} display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="subtitle1">{referral.referredName}</Typography>
+                <Typography variant="subtitle1" color="#0ddb7c">+{referral.reward}</Typography>
+              </Box><Box display="flex" alignItems="center" mb={1}>
+                  <EmojiEvents sx={{ color: 'gold', mr: 1 }} />
+                  <Typography variant="subtitle1" sx={{ color: 'gold' }}>gold</Typography>
+                </Box>
+                <Box>
+                </Box></>
+            ))
+          ) : (
+            <Typography>No referrals found.</Typography>
+          )}
           </Box>
         </Box>
       </Container>
