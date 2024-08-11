@@ -27,7 +27,8 @@ const Refferal = ({ userdata }) => {
     const fetchReferrals = async () => {
       try {
         console.log("dada",userdata.id);
-        const response = await axios.get('https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/' + userdata['id']);
+        const id = userdata.id;
+        const response = await axios.get('https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/' + id);
         const fetchedReferrals = response.data;
         // console.log("list" ,fetchedReferrals)
           // Safely handle empty list
