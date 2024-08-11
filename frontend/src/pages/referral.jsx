@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Galaxy from '../Components/Galaxy';
 import axios from 'axios';
 
-// eslint-disable-next-line react/prop-types
+
 const Refferal = ({ userdata }) => {
   const [showBonuses, setShowBonuses] = useState(false);
   const [referrals, setReferrals] = useState([]);
@@ -28,7 +28,7 @@ const Refferal = ({ userdata }) => {
       try {
         console.log("dada",userdata.id);
         const id = userdata.id;
-        const response = await axios.get('https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/' + id);
+        const response = await axios.get(`https://5fe9-176-234-130-119.ngrok-free.app/referal/referalslist/${id}`);
         const fetchedReferrals = response.data;
         // console.log("list" ,fetchedReferrals)
           // Safely handle empty list
