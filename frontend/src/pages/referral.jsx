@@ -12,7 +12,7 @@ const Refferal = ({ userdata }) => {
   const [showBonuses, setShowBonuses] = useState(false);
   const [referrals, setReferrals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const [totalRewards, setTotalRewards] = useState(0);
   const [totalReferrals, setTotalReferrals] = useState(0);
   const bonuses = [
@@ -54,7 +54,7 @@ const Refferal = ({ userdata }) => {
         setTotalReferrals(totalReferrals);
         setLoading(false);
       } catch (error) {
-        setError('Error fetching referrals');
+        
         setLoading(false);
         console.error("Error fetching referrals:", error); // Log the error for debugging
       }
