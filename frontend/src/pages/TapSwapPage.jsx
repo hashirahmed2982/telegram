@@ -8,13 +8,13 @@ import axios from 'axios';
 
 const Earn = ({ userdata }) => {
 
+  const [userdata1, setUserData1] = useState(userdata);
 
 
   const [isPressedCoin1, setIsPressedCoin1] = useState(false);
   const [pointsCoin1, setPointsCoin1] = useState(userdata.taps);
   const [clicksCoin1, setClicksCoin1] = useState([]);
   const [totalVotesCoin1, setTotalVotesCoin1] = useState(0);
-  const [userdata1, setUserData1] = useState(userdata1);
 
   const [isPressedCoin2, setIsPressedCoin2] = useState(false);
   const [pointsCoin2, setPointsCoin2] = useState(0);
