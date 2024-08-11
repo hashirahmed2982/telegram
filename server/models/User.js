@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     energy: { type: Number, default: 250 },
     totalenergy: { type: Number, default: 250 },
     pointsadd: { type: Number, default: 1 },
+    refferallink : {type: String},
     taps: { type: Number, default: 0 },
     boosts: { type: Number, default: 0 },
     lastEnergyUpdate: { type: Date, default: Date.now },

@@ -71,6 +71,13 @@ const Earn = ({ userdata }) => {
     const interval = setInterval(() => {
       setEnergy((prevEnergy) => Math.min(prevEnergy + 1, totalenergy));
     }, 60000);
+    fetch(`https://5fe9-176-234-130-119.ngrok-free.app/game/user/${userdata.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ energy: energy }),
+    });
 
     return () => clearInterval(interval);
   }, []);

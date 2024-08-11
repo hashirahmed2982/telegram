@@ -16,7 +16,8 @@ const initialUserData = {
   last_name: '',
   username: '',
   language_code: '',
-  is_premium: false
+  is_premium: false,
+  refferallink: '',
 }
 function App() {
   const API_URL = ' https://5fe9-176-234-130-119.ngrok-free.app/game';
@@ -27,7 +28,8 @@ function App() {
   const SaveUser = async (user) => {
     try {
 
-      console.log("Attempting to save user data:", userData); // Debugging statement
+      console.log("Attempting to save user data:", userData);
+      user.refferallink = 'https://t.me/vote2982_bot?start=${'+userData.id +'}'; // Debugging statement
       const response = await axios.post(`${API_URL}/loginuser`, user);
       console.log("User data saved successfully:", response.data); // Debugging statement
       setUserData1(response.data);

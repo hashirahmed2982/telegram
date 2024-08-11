@@ -6,7 +6,7 @@ const calculateEnergyRefill = async (user) => {
     const now = new Date();
     const timeDiff = Math.floor((now - user.lastEnergyUpdate) / 60000); // time difference in minutes
     const energyToAdd = timeDiff * user.refillRate;
-    user.energy = Math.min(user.energy + energyToAdd, 100); // assuming 100 is the max energy
+    user.energy = Math.min(user.energy + energyToAdd, user.totalenergy); // assuming 100 is the max energy
     user.lastEnergyUpdate = now;
     return await user.save();
 };
@@ -20,6 +20,7 @@ router.get('/user/:username', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
 router.post('/loginuser', async (req, res) => {
     const { id, first_name, last_name, username ,is_premium ,language_code } = req.body;
     console.log(id);
